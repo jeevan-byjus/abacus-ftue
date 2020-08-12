@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 918b393c3b1a54c92ba470e0f0118543, type: 3}
-  m_Name: Promp-67
+  m_Name: Prompt-Byeeeee
   m_EditorClassIdentifier: 
-  answer: 0
-  questionPrompt: 
+  answer: 666
+  questionPrompt: Byeeeee!!!
   questionAudio: {fileID: 0}
-  explanationPrompt: 
+  explanationPrompt: Seriously, bye.
   explanationAudio: {fileID: 0}
   hintPrompt: 
   hintAudio: {fileID: 0}
