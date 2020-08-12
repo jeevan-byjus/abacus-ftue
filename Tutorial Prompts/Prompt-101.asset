@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918b393c3b1a54c92ba470e0f0118543, type: 3}
   m_Name: Prompt-101
   m_EditorClassIdentifier: 
-  answer: 0
-  questionPrompt: 
-  questionAudio: {fileID: 0}
-  explanationPrompt: 
-  explanationAudio: {fileID: 0}
+  answer: 101
+  questionPrompt: We'll begin with something easy.  Do you think you can make 101?
+  questionAudio: {fileID: 8300000, guid: 4a8bdeb410f87447786dc6384e98a4e1, type: 3}
+  explanationPrompt: Yes! Way to go! One 100s bead, and a single 1s bead!
+  explanationAudio: {fileID: 8300000, guid: 4a8bdeb410f87447786dc6384e98a4e1, type: 3}
   hintPrompt: 
   hintAudio: {fileID: 0}

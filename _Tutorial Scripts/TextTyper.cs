@@ -7,8 +7,10 @@ public class TextTyper : MonoBehaviour
 {
     [SerializeField] private float typingSpeed = 1f;
     public float delayBetweenPrompts = 5f;
-    [SerializeField] private string[] questionPrompts;
-    [SerializeField] private string[] hintPrompts;
+    [SerializeField] private AudioSource characterVoiceBox;
+    [SerializeField] private TutorialPrompt[] prompts;
+    private Abacus abacus;
+    private int questionIndex;
     private TextMeshPro textField;
 
     private float typeDelay
@@ -24,6 +26,10 @@ public class TextTyper : MonoBehaviour
     private void Awake() 
     {
         textField = GetComponent<TextMeshPro>();
+        abacus = FindObjectOfType<Abacus>();
+
+        abacus.OnValueChanged += CheckAnswer;
+        questionIndex =0;
     }
 
     public void TypeOut(string sentence)
@@ -31,14 +37,26 @@ public class TextTyper : MonoBehaviour
         StartCoroutine(RevealPrompt(sentence));
     }
 
-    public void TypeOutQuestion(int questionNumber)
+    public void AskQuestion(int questionNumber)
     {
-        TypeOut(questionPrompts[questionNumber]);
+        TypeOut(prompts[questionNumber].questionPrompt);
+        characterVoiceBox.clip = prompts[questionNumber].questionAudio;
+
+        if(prompts[questionNumber].questionAudio != null)
+        {
+            characterVoiceBox.Play();
+        }
     }
 
-    public void TypeOutHint(int hintNumber)
+    public void GiveExplanation(int hintNumber)
     {
-        TypeOut(hintPrompts[hintNumber]);
+        TypeOut(prompts[hintNumber].explanationPrompt);
+        characterVoiceBox.clip = prompts[hintNumber].explanationAudio;
+
+        if(prompts[hintNumber].explanationAudio != null)
+        {
+            characterVoiceBox.Play();
+        }
     }
 
     private IEnumerator RevealPrompt(string sentence)
@@ -51,5 +69,51 @@ public class TextTyper : MonoBehaviour
             textField.text = partialSentence;
         }
         yield return new WaitForSeconds(0f);
+    }
+
+    private string ColourNumber(int number)
+    {
+        //179
+        string output = "";
+        string onesColourHex = "<color=#FF3142>";       // reddish
+        string tensColourHex = "<color=#00AC6D>";       // greenish
+        string hundredsColourHex = "<color=#00BCC1>";   // blueish
+        string endColour = "</color>";
+
+        int ones = number % 10;
+        int tens = (number/10) % 10;
+        int hundreds = (number/100) % 10;
+
+        if(number < 10)
+        {
+            output = "<b>" + onesColourHex + ones.ToString() + endColour + "</b>";
+        }
+        else if(number < 100)
+        {
+            output = "<b>" + tensColourHex + tens.ToString() + endColour +  onesColourHex + ones.ToString() + endColour +"</b>";
+        }
+        else
+        {
+            output = "<b>" +  hundredsColourHex + hundreds.ToString() + endColour + tensColourHex + tens.ToString() + endColour +  onesColourHex + ones.ToString() + endColour +"</b>";
+        }
+
+        return output;
+    }
+
+    private void CheckAnswer(object sender, EventArgs e)
+    {
+        if(abacus.Total == prompts[questionIndex].answer)
+        {
+            GiveExplanation(questionIndex);
+            
+            questionIndex++;
+            Invoke("ShowNextQuestion", delayBetweenPrompts);
+
+        }
+    }
+
+    void ShowNextQuestion()
+    {
+        AskQuestion(questionIndex);
     }
 }

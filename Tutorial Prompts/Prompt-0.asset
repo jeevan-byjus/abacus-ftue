@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Prompt-0
   m_EditorClassIdentifier: 
   answer: 0
-  questionPrompt: 
-  questionAudio: {fileID: 0}
-  explanationPrompt: 
-  explanationAudio: {fileID: 0}
+  questionPrompt: I know that if you move all the beads away from the middle, the
+    abacus is set to zero! Could you reset this abacus to zero?
+  questionAudio: {fileID: 8300000, guid: 4a8bdeb410f87447786dc6384e98a4e1, type: 3}
+  explanationPrompt: That's great!  Any abacus beads that are away from the middle
+    are not counted!
+  explanationAudio: {fileID: 8300000, guid: 4a8bdeb410f87447786dc6384e98a4e1, type: 3}
   hintPrompt: 
   hintAudio: {fileID: 0}
